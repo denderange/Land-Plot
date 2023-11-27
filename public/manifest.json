@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Land plots",
+  "name": "Example of a site for the sale of land plots",
   "icons": [
     {
       "src": "favicon.ico",

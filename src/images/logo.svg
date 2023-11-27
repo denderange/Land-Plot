@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="62.487mm" height="37.617mm" version="1.1" viewBox="0 0 62.487 37.617" xmlns="http://www.w3.org/2000/svg">
+<g transform="translate(-38.245 -20.733)">
+<text x="33.259331" y="58.349705" fill="#008080" font-size="50.8px" stroke-width=".26458" xml:space="preserve"><tspan x="33.259331" y="58.349705" font-family="sans-serif" font-size="50.8px" stroke-width=".26458">D</tspan></text>
+<text transform="scale(.26458)" fill="#008080" font-family="sans-serif" font-size="192px" style="shape-inside:url(#rect2);white-space:pre" xml:space="preserve"/>
+<path transform="scale(1.0595 .94383)" d="m52.891 32.762v20.557h4.3204q5.4714 0 8.0034-2.4789 2.5498-2.4789 2.5498-7.8264 0-5.312-2.5498-7.7732-2.5321-2.4789-8.0034-2.4789zm-3.5768-2.9393h7.3483q7.6847 0 11.279 3.2049 3.5945 3.1872 3.5945 9.9866 0 6.8348-3.6122 10.04t-11.261 3.2049h-7.3483z" fill="#008080" stroke-width=".18887" aria-label="D"/>
+<text x="65.282494" y="29.758337" fill="#008000" font-family="sans-serif" font-size="12.381px" stroke-width=".064482" xml:space="preserve"><tspan x="65.282494" y="29.758337">LAND</tspan><tspan x="65.282494" y="45.234085"/></text>
+<text transform="scale(1.211 .82573)" x="53.16954" y="69.907806" fill="#008000" font-family="sans-serif" font-size="11.882px" stroke-width=".061888" xml:space="preserve"><tspan x="53.16954" y="69.907806" stroke-width=".061888">PLOT</tspan></text>
+</g>
+</svg>

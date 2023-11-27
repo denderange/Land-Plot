@@ -1,0 +1,25 @@
+.header{
+	position: fixed;
+	z-index: 10;
+  top: 0;
+  width: 100%;
+}
+
+.header__container{
+	max-width: var(--dw);
+	margin: 0 auto;
+	padding: 10px 20px;
+  background-color: var(--color-100);
+	box-shadow: 0px 0px 10px 0px rgba(132, 156, 141, 0.5);
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.logo{
+	width: 40px;
+}
+
+.header__info{
+
+}
