@@ -6,7 +6,9 @@
 	--color-200: #a7d7c5; 
 	--color-300: #74b49b; 
 	--color-400: #5c8d89; 
-	--color-500: #205237; 
+	--color-500: #18201c; 
+	--color-600: #960000; 
+	--color-700: #ac1515; 
 
 	--text-100: #d0ffed;
 
@@ -64,7 +66,7 @@ button{
 	padding: 0;
 }
 
-img{
+img, svg{
 	margin:0;
 	padding:0;
 	border:0;
@@ -75,8 +77,7 @@ img{
 }
 
 .wrapper {  
-  padding: 10px 20px;  
-	padding-top: 55px;
+	padding: 55px 10px 0px 10px;
 	flex-grow: 1;
 }
 
@@ -85,8 +86,8 @@ img{
 	margin: 0 auto;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .container {
     padding: 0 20px;
   }
-}
+} */

@@ -1,7 +1,18 @@
+.map-wrapper{
+	display: flex;
+}
+
 .land-plot__image-wrapper{
-	/* position: relative; */
+	width: max-content;
+	height: max-content;
+	position: relative;
 }
 
 .land-plot__image{
 	width: 100%;
+}
+
+.map-info{
+	width: 420px;
+	padding-left: 10px;
 }

@@ -2,3 +2,32 @@
 	background-color: var(--color-500);
 	color: var(--text-100)
 }
+
+.footer_action{	
+	background-color: var(--color-600);	
+}
+
+.footer_action__container{
+	max-width: 1220px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: 500;
+	font-size: 30px;
+	padding: 10px 20px;
+}
+
+.footer_action__btn{
+	border: 2px solid var(--color-100);
+	background-color: var(--color-600);
+	color: var(--color-100);
+	font-weight: 500;
+	font-size: 20px;
+	padding: 10px 20px;
+	transition: background-color .3s ease;
+}
+
+.footer_action__btn:hover{
+	background-color: var(--color-700);
+}

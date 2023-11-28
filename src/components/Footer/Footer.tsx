@@ -3,11 +3,26 @@ import styles from './Footer.module.css'
 const Footer = () => {
 	return (
 		<footer className={styles.footer}>
-			<div className="container">
-				<div>
-					НЕ НАШЛИ ПОДХОДЯЩЕГО ВАРИАНТА?
-					КЛИКНИТЕ ЗДЕСЬ!
+			<div className={styles['footer_action']}>
+				<div className={styles['footer_action__container']}>
+					<span>НЕ НАШЛИ ПОДХОДЯЩЕГО ВАРИАНТА?</span>
+					<button className={styles['footer_action__btn']}>
+						КЛИКНИТЕ ЗДЕСЬ!
+					</button>
 				</div>
+			</div>
+
+			<div className="container">
+				<ul>
+					<li>
+						© 2016 - 2023 Агентство недвижимости
+
+						ЗАО "АЛЬТЕРНАТИВА Брест"
+						г. Брест, ул. Советская, 51-1
+						office@a-brest.by
+						office.a-brest.by
+					</li>
+				</ul>
 				© 2016 - 2023 Агентство недвижимости
 
 				ЗАО "АЛЬТЕРНАТИВА Брест"

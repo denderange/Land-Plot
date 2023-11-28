@@ -1,7 +1,11 @@
 svg{
 	width: 100%;
-	/* position: absolute; */
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
+
 path{
 	fill: aqua;
 }
