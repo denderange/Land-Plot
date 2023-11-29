@@ -10,9 +10,9 @@ const Header = () => {
 			<div className={styles.header__container}>
 				<img src={logo} alt="land plot" className={styles.logo} />
 
-				{/* <div className={styles.header__info}>
-					По запросу найдено - 113 объектов | cсортировка по цене | сортировка по размеру м.кв | dropdown - цена в руб/$
-				</div> */}
+				<div className={styles.header__info}>
+					| cсортировка по цене | сортировка по размеру м.кв | dropdown - цена в руб/$
+				</div>
 
 				<div className={styles['header__info']}>
 					Участков всего: {plotsAmount}

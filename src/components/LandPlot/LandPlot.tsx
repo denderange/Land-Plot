@@ -5,6 +5,14 @@ import './svg-styles.css'
 import CardPlot from '../CardPlot/CardPlot'
 
 const LandPlot = () => {
+	const getPlotsApi = async () => {
+		const response = await fetch('http://localhost:8001/landplots')
+		const landplot = await response.json()
+
+		return landplot.length
+	}
+	console.log(getPlotsApi())
+
 	const allPaths = Array.from(document.querySelectorAll('path'))
 	console.log(allPaths.length)
 

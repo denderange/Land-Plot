@@ -24,3 +24,5 @@ yarn-error.log*
 
 dataHandler.js
 description.js
+dataJsonHandler.js
+landplots copy.ts
