@@ -1,6 +1,8 @@
-import { landplotsData } from '../../data/landplots'
+import { FC } from 'react';
+import { ILandPlot } from '../../data/landplots'
 import styles from './CardPlot.module.css'
 import imgBlank from '../../images/blank-photo.png'
+import { useDispatch } from 'react-redux';
 
 const getRandomSquare = (minSize: number, maxSize: number) => {
 	const randomDecimals = Math.floor(Math.random() * 10) / 10;
@@ -15,14 +17,21 @@ const getRandomPrice = (min: number, max: number) => {
 	)
 }
 
-const CardPlot = () => {
-	const { id, image, price, square, description } = landplotsData[0]
+interface ICardPlotProps {
+	landPlot: ILandPlot
+}
+
+const CardPlot: FC<ICardPlotProps> = ({ landPlot }) => {
+	// const { id, image, price, square, description } = landplotsData[0]
+	// const { id, image, price, square, description } = landPlot
+
+
 
 	return (
 		<div className={styles['card-container']}>
 			<img
-				src={image.length ?
-					require(`../../images/plot-photos/${image}`) :
+				src={landPlot.image.length ?
+					require(`../../images/plot-photos/${landPlot.image}`) :
 					imgBlank
 				}
 				className={styles['plot__image']}
@@ -32,7 +41,7 @@ const CardPlot = () => {
 			<div className={styles['plot__price']}>{getRandomPrice(30, 500)}$ / 000000 RUB</div>
 			<div className={styles['plot__square']}>{getRandomSquare(10, 100)} соток</div>
 			<p className={styles['plot__description']}>
-				{description.length ? description : "Описания не предоставлено."}
+				{landPlot.description.length ? landPlot.description : "Описания не предоставлено."}
 			</p>
 		</div>
 	)

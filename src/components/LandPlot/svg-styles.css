@@ -7,5 +7,17 @@ svg{
 }
 
 path{
-	fill: aqua;
+	fill: rgba(9, 80, 0, 0.5);
+	stroke-width: 1px;
+	stroke: rgba(0, 0, 0, 0.4);
+	transition: fill 0.3s ease;
+}
+
+path:hover{
+	fill: rgba(255, 254, 188, 0.5);
+}
+
+.path-clicked{
+	stroke: rgba(0, 0, 0, 1);
+	fill: rgba(255, 251, 0, 1);
 }

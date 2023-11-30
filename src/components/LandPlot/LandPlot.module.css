@@ -16,3 +16,10 @@
 	width: 420px;
 	padding-left: 10px;
 }
+
+.btn-clear{
+	background-color: var(--color-400);
+	padding: 5px 10px;
+	color: var(--color-100);
+	font-size: 14px;
+}

@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getPlotsApi } from '../../api/landplots'
-import { LandPlots } from '../../data/landplots'
+import { ILandPlot } from '../../data/landplots'
 
 interface IState {
 	plotsTotal: number,
-	plotsChosen: Array<LandPlots>
+	plotsChosen: Array<ILandPlot>
 }
 
 const initialState: IState = {
@@ -21,17 +21,18 @@ export const getPlots = createAsyncThunk(
 	}
 )
 
-export const landplotSlice = createSlice({
+const landplotSlice = createSlice({
 	name: 'landplots',
 	initialState,
 	reducers: {
 		changeCurrent: (state, action) => {
 			state.plotsTotal = action.payload
+			state.plotsChosen = action.payload
 		}
 	},
 	extraReducers: (builder) => {
 		builder.addCase(getPlots.fulfilled, (state, action) => {
-			state.plotsChosen = action.payload
+			state.plotsChosen = action.payload[0]
 			state.plotsTotal = action.payload.length
 		})
 	}
