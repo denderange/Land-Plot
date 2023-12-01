@@ -7,17 +7,7 @@ import CardPlot from '../CardPlot/CardPlot'
 import { useSelector } from 'react-redux'
 import { RootState, useStoreDispatch } from '../../redux/store'
 import { getPlots } from '../../redux/slice/landplotSlice'
-import { addChosenPlot } from '../../redux/slice/landplotSlice'
-
-const testLandPlot =
-{
-	id: 0,
-	image: '',
-	price: 0,
-	square: 0,
-	description: ""
-}
-
+import { addChosenPlot, clearChosenPlot } from '../../redux/slice/landplotSlice'
 
 const LandPlot = () => {
 	const [allPlots, setAllPlots] = useState<SVGPathElement[]>()
@@ -29,11 +19,12 @@ const LandPlot = () => {
 		state.landplot.plotsTotalList
 	)
 
-
 	const handleClear = () => {
 		console.log(plotsList)
 		setPlotsList([])
 		allPlots?.forEach(item => item.classList.remove('path-clicked'))
+
+		dispatch(clearChosenPlot())
 	}
 
 	const handlePathClick = (event: Event) => {

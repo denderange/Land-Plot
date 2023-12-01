@@ -5,8 +5,6 @@ import { ILandPlot } from '../../data/landplots'
 interface IState {
 	plotsTotalList: Array<ILandPlot>,
 	plotsChosen: string[],
-	// plotsCurrent: Array<ILandPlot>,
-	// plotsList: Array<ILandPlot>
 }
 
 const initialCurrent: ILandPlot[] = [
@@ -22,8 +20,6 @@ const initialCurrent: ILandPlot[] = [
 const initialState: IState = {
 	plotsTotalList: [],
 	plotsChosen: [],
-	// plotsCurrent: [],
-	// plotsList: []
 }
 
 export const getPlots = createAsyncThunk(
@@ -40,18 +36,11 @@ const landplotSlice = createSlice({
 	initialState,
 	reducers: {
 		addChosenPlot: (state, action) => {
-			state.plotsChosen.push(action.payload)
+			state.plotsChosen.unshift(action.payload)
 		},
-
-		// addPlot: (state, action) => {
-		// 	state.plotsList = state.plotsList.concat({
-		// 		id: action.payload.id || 'id-eee',
-		// 		image: action.payload.image || 'image-eee',
-		// 		price: 555,
-		// 		square: 999,
-		// 		description: action.payload.description || 'description-eee'
-		// 	})
-		// }
+		clearChosenPlot: (state) => {
+			state.plotsChosen = []
+		}
 	},
 	extraReducers: (builder) => {
 		builder.addCase(getPlots.fulfilled, (state, action) => {
@@ -60,5 +49,5 @@ const landplotSlice = createSlice({
 	}
 })
 
-export const { addChosenPlot } = landplotSlice.actions
+export const { addChosenPlot, clearChosenPlot } = landplotSlice.actions
 export default landplotSlice.reducer
