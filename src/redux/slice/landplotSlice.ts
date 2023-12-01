@@ -3,13 +3,27 @@ import { getPlotsApi } from '../../api/landplots'
 import { ILandPlot } from '../../data/landplots'
 
 interface IState {
-	plotsTotal: number,
-	plotsChosen: Array<ILandPlot>
+	plotsTotalList: Array<ILandPlot>,
+	plotsChosen: string[],
+	// plotsCurrent: Array<ILandPlot>,
+	// plotsList: Array<ILandPlot>
 }
 
+const initialCurrent: ILandPlot[] = [
+	{
+		id: 0,
+		image: '',
+		price: 0,
+		square: 0,
+		description: ""
+	}
+]
+
 const initialState: IState = {
-	plotsTotal: 0,
-	plotsChosen: []
+	plotsTotalList: [],
+	plotsChosen: [],
+	// plotsCurrent: [],
+	// plotsList: []
 }
 
 export const getPlots = createAsyncThunk(
@@ -25,18 +39,26 @@ const landplotSlice = createSlice({
 	name: 'landplots',
 	initialState,
 	reducers: {
-		changeCurrent: (state, action) => {
-			state.plotsTotal = action.payload
-			state.plotsChosen = action.payload
-		}
+		addChosenPlot: (state, action) => {
+			state.plotsChosen.push(action.payload)
+		},
+
+		// addPlot: (state, action) => {
+		// 	state.plotsList = state.plotsList.concat({
+		// 		id: action.payload.id || 'id-eee',
+		// 		image: action.payload.image || 'image-eee',
+		// 		price: 555,
+		// 		square: 999,
+		// 		description: action.payload.description || 'description-eee'
+		// 	})
+		// }
 	},
 	extraReducers: (builder) => {
 		builder.addCase(getPlots.fulfilled, (state, action) => {
-			state.plotsChosen = action.payload[0]
-			state.plotsTotal = action.payload.length
+			state.plotsTotalList = action.payload
 		})
 	}
 })
 
-export const { changeCurrent } = landplotSlice.actions
+export const { addChosenPlot } = landplotSlice.actions
 export default landplotSlice.reducer

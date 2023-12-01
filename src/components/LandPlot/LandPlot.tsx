@@ -4,17 +4,31 @@ import LandPlotSvg from './LandPlotSvg'
 import styles from './LandPlot.module.css'
 import './svg-styles.css'
 import CardPlot from '../CardPlot/CardPlot'
-import { useSelector, useStore } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState, useStoreDispatch } from '../../redux/store'
 import { getPlots } from '../../redux/slice/landplotSlice'
+import { addChosenPlot } from '../../redux/slice/landplotSlice'
+
+const testLandPlot =
+{
+	id: 0,
+	image: '',
+	price: 0,
+	square: 0,
+	description: ""
+}
+
 
 const LandPlot = () => {
 	const [allPlots, setAllPlots] = useState<SVGPathElement[]>()
 	const [plotsList, setPlotsList] = useState<string[]>([])
 
 	const dispatch = useStoreDispatch()
-	const landPlots = useSelector((state: RootState) => state.landplotSlice.plotsTotal)
-	const landPlotsChosen = useSelector((state: RootState) => state.landplotSlice.plotsChosen)
+	const landPlotsChosen = useSelector((state: RootState) => state.landplot.plotsChosen)
+	const landPlotsList = useSelector((state: RootState) =>
+		state.landplot.plotsTotalList
+	)
+
 
 	const handleClear = () => {
 		console.log(plotsList)
@@ -31,22 +45,18 @@ const LandPlot = () => {
 
 			if (!plotsList.includes(chosenPlot)) {
 				setPlotsList([...plotsList, chosenPlot])
+
+				dispatch(addChosenPlot(chosenPlot))
+				// console.log(landPlotsList[Number(chosenPlot) - 1])
+				console.log(landPlotsChosen)
 			}
 		}
-	}
-
-	const getPlotsApi = async () => {
-		const response = await fetch('http://localhost:8001/landplots')
-		const landplot = await response.json()
-
-		return landplot.lngth
 	}
 
 	useEffect(() => {
 		const allPaths = Array.from(document.querySelectorAll('path'))
 		allPaths.forEach(item => item.addEventListener('click', handlePathClick))
 		setAllPlots([...allPaths])
-
 
 		dispatch(getPlots())
 
@@ -65,8 +75,6 @@ const LandPlot = () => {
 				</div>
 
 				<aside className={styles['map-info']}>
-					{/* <CardPlot landPlot={landPlotsChosen}/> */}
-
 					<div>
 						<button
 							className={styles['btn-clear']}
@@ -88,10 +96,18 @@ const LandPlot = () => {
 						}
 					</div>
 
+					{/* <CardPlot landPlot={testLandPlot} /> */}
+
+					{landPlotsChosen.map(item => (
+						<div key={item}>
+							<CardPlot landPlot={landPlotsList[Number(item)]} />
+						</div>
+					))}
+
 					<div>
 						<h6>from redux</h6>
 						<div>
-							{landPlots}
+							{landPlotsChosen.length}
 						</div>
 						<div>
 							{/* {landPlotsChosen.id} */}

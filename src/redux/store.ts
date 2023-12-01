@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
-import landplotSlice from './slice/landplotSlice'
+import landplot from './slice/landplotSlice'
 
 export const store = configureStore({
 	reducer: {
-		landplotSlice
+		landplot
 	}
 })
 

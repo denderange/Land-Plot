@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { useSelector, useStore } from 'react-redux'
+import { RootState, useStoreDispatch } from '../../redux/store'
 import logo from '../../images/logo.svg'
 import styles from './Header.module.css'
 
 const Header = () => {
-	const [plotsAmount, setPlotsAmount] = useState(0)
+	const landPlotsList = useSelector((state: RootState) => state.landplot.plotsTotalList)
 
 	return (
 		<header className={styles.header}>
@@ -15,7 +17,7 @@ const Header = () => {
 				</div>
 
 				<div className={styles['header__info']}>
-					Участков всего: {plotsAmount}
+					Участков всего: {landPlotsList.length}
 				</div>
 			</div>
 		</header>
