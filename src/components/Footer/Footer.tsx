@@ -1,12 +1,23 @@
+import { useState } from 'react'
+import ModalContacts from '../ModalContacts/ModalContacts'
 import styles from './Footer.module.css'
 
 const Footer = () => {
+	const [modalIsActive, setModalIsActive] = useState(false)
+
+	const toggleModal = () => {
+		setModalIsActive(!modalIsActive)
+	}
+
 	return (
 		<footer className={styles.footer}>
 			<div className={styles['footer_action']}>
 				<div className={styles['footer_action__container']}>
 					<span>НЕ НАШЛИ ПОДХОДЯЩЕГО ВАРИАНТА?</span>
-					<button className={styles['footer_action__btn']}>
+					<button
+						className={styles['footer_action__btn']}
+						onClick={toggleModal}
+					>
 						КЛИКНИТЕ ЗДЕСЬ!
 					</button>
 				</div>
@@ -45,6 +56,8 @@ const Footer = () => {
 				Трудоустройство
 				+375 (29) 725-44-00
 			</div>
+
+			<ModalContacts toggleModal={toggleModal} isModalActive={modalIsActive} />
 		</footer>
 	)
 }

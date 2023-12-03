@@ -9,6 +9,8 @@ import { RootState, useStoreDispatch } from '../../redux/store'
 import { getPlots } from '../../redux/slice/landplotSlice'
 import { addChosenPlot, clearChosenPlot } from '../../redux/slice/landplotSlice'
 
+const errorMessage = 'В данный момент сервер недоступен. Попробуйте позже.'
+
 const LandPlot = () => {
 	const [allPlots, setAllPlots] = useState<SVGPathElement[]>()
 	const [plotsList, setPlotsList] = useState<string[]>([])
@@ -37,7 +39,9 @@ const LandPlot = () => {
 			if (!plotsList.includes(chosenPlot)) {
 				setPlotsList([...plotsList, chosenPlot])
 
-				dispatch(addChosenPlot(chosenPlot))
+				if (landPlotsList.length) {
+					dispatch(addChosenPlot(chosenPlot))
+				}
 				// console.log(landPlotsList[Number(chosenPlot) - 1])
 				console.log(landPlotsChosen)
 			}
@@ -45,11 +49,12 @@ const LandPlot = () => {
 	}
 
 	useEffect(() => {
+		dispatch(getPlots())
+
 		const allPaths = Array.from(document.querySelectorAll('path'))
 		allPaths.forEach(item => item.addEventListener('click', handlePathClick))
-		setAllPlots([...allPaths])
 
-		dispatch(getPlots())
+		setAllPlots([...allPaths])
 
 		return () => allPaths.forEach(item => {
 			item.removeEventListener("click", handlePathClick);
@@ -66,44 +71,50 @@ const LandPlot = () => {
 				</div>
 
 				<aside className={styles['map-info']}>
-					<div>
-						<button
-							className={styles['btn-clear']}
-							onClick={handleClear}
-						>
-							Очистить выбранные
-						</button>
-						<h5>items selected:</h5>
-						<p>
-							selected: {plotsList.length}
-						</p>
-						{plotsList.length ? (
-							<>
-								{plotsList.map((item, index) => (
-									<span key={index}>{item}</span>
-								))}
-							</>
-						) : (<h5>Выберите участок</h5>)
-						}
-					</div>
+					{landPlotsList.length ? (
+						<>
+							<div>
+								<button
+									className={styles['btn-clear']}
+									onClick={handleClear}
+								>
+									Очистить выбранные
+								</button>
+								<h5>items selected:</h5>
+								<p>
+									selected: {plotsList.length}
+								</p>
+								{plotsList.length ? (
+									<>
+										{plotsList.map((item, index) => (
+											<span key={index}>{item}</span>
+										))}
+									</>
+								) : (<h5>Выберите участок</h5>)
+								}
+							</div>
 
-					{/* <CardPlot landPlot={testLandPlot} /> */}
+							{landPlotsChosen.map(item => (
+								<div key={item}>
+									<CardPlot landPlot={landPlotsList[Number(item)]} />
+								</div>
+							))}
 
-					{landPlotsChosen.map(item => (
-						<div key={item}>
-							<CardPlot landPlot={landPlotsList[Number(item)]} />
-						</div>
-					))}
-
-					<div>
-						<h6>from redux</h6>
-						<div>
-							{landPlotsChosen.length}
-						</div>
-						<div>
-							{/* {landPlotsChosen.id} */}
-						</div>
-					</div>
+							<div>
+								<h6>from redux</h6>
+								<div>
+									{landPlotsChosen.length}
+								</div>
+								<div>
+									{/* {landPlotsChosen.id} */}
+								</div>
+							</div>
+						</>
+					) : (
+						<div className={styles['error-container']}>
+							{errorMessage}
+						</div>)
+					}
 				</aside>
 			</section>
 		</div>

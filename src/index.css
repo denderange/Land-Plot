@@ -2,6 +2,7 @@
 
 :root {
   /* Colors */
+	--color-white: #fff;
 	--color-100: #ddf3dc; 
 	--color-200: #a7d7c5; 
 	--color-300: #74b49b; 
@@ -39,10 +40,11 @@ html, body, #root{
 #root{
 	min-height: 100%;
 	display: flex;
-	flex-direction: column;
+	flex-direction: column;	
 }
 
 body {
+	background-color: var(--color-white);
   font-family: var(--family);
   font-size: 18px;
   font-weight: var(--fw-normal);
@@ -75,6 +77,16 @@ img, svg{
 	font-size:100%;
 	vertical-align:baseline;
 	background:transparent;
+}
+
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .wrapper {  
