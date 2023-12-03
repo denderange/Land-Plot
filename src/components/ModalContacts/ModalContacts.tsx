@@ -1,6 +1,7 @@
+import { useRef } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form'
 import styles from './ModalContacts.module.css'
-import { spawn } from 'child_process'
+import emailjs from '@emailjs/browser';
 
 interface IModalContactsProps {
 	isModalActive: boolean
@@ -15,13 +16,32 @@ type Inputs = {
 }
 
 const ModalContacts = ({ toggleModal, isModalActive }: IModalContactsProps) => {
+	const form = useRef()
 	const {
 		register,
+		reset,
 		handleSubmit,
 		formState: { errors }
 	} = useForm<Inputs>()
 
-	const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+	const onSubmit: SubmitHandler<Inputs> = (data) => {
+		console.log(data)
+		const templateParams = {
+			from_name: data.name,
+			from_email: data.email,
+			message: `телефон пользователя: ${data.phone} \n 
+			e-mail пользователя: ${data.email} \n
+			сообщение: ${data.text}`
+		}
+
+		emailjs.send('service_e0nnd5v', 'template_6jxqu7s', templateParams, 'wpjHTljkoAL_B6MQX')
+			.then(() => {
+				alert('Сообщение успешно отправлено!')
+				reset()
+			}, (error) => {
+				alert('Сообщение не отправлено. Возникла ошибка.')
+			});
+	}
 
 	return (
 		<dialog className={isModalActive ? styles['underlay'] : styles['underlay-hidden']}>
@@ -34,31 +54,31 @@ const ModalContacts = ({ toggleModal, isModalActive }: IModalContactsProps) => {
 					<ul className={styles['modal__contacts-phones']}>
 						<li>
 							<a href="tel:375005557777">+ 375 (00)
-								<span>{' '}555-77-77</span>
+								<span>{' '}555-77-70</span>
 							</a>
 							{' '}ЗЕМЕЛЬНЫЙ ОТДЕЛ
 						</li>
 						<li>
 							<a href="tel:375005557777">+ 375 (00)
-								<span>{' '}555-77-77</span>
+								<span>{' '}555-77-71</span>
 							</a>
 							{' '}НЕЖИЛОЙ ФОНД
 						</li>
 						<li>
 							<a href="tel:375005557777">+ 375 (00)
-								<span>{' '}555-77-77</span>
+								<span>{' '}555-77-72</span>
 							</a>
 							{' '}ОФОРМЛЕНИЕ СДЕЛОК
 						</li>
 						<li>
 							<a href="tel:375005557777">+ 375 (00)
-								<span>{' '}555-77-77</span>
+								<span>{' '}555-77-73</span>
 							</a>
 							{' '}КОНСУЛЬТАЦИИ ЮРИСТА
 						</li>
 						<li>
 							<a href="tel:375005557777">+ 375 (00)
-								<span>{' '}555-77-77</span>
+								<span>{' '}555-77-74</span>
 							</a>
 							{' '}БУХГАЛТЕРИЯ
 						</li>
@@ -81,13 +101,55 @@ const ModalContacts = ({ toggleModal, isModalActive }: IModalContactsProps) => {
 						В нашей базе есть еще участки, которых нет на сайте. Оставьте свои данные и наши специалисты подберут вариант под ваши предпочтения.
 					</p>
 
-					<form onSubmit={handleSubmit(onSubmit)} className={styles['modal__form']}>
-						<input {...register("name", { required: true })} type="text" placeholder='Ваши фамилия и имя' />
-						{errors.name && <span className={styles['modal__form-error']}>error message</span>}
+					<form
+						onSubmit={handleSubmit(onSubmit)}
+						className={styles['modal__form']}
+					// ref={form}
+					>
+						{errors.name && <span className={styles['modal__form-error']}>{errors.name.message}</span>}
+						<input
+							{...register("name", {
+								required: "Введите Ваше имя.",
+								maxLength: 50
+							})}
+							type="text"
+							placeholder='Ваши фамилия и имя'
+							style={errors.name && { borderColor: 'var(--color-700)', outlineColor: 'var(--color-700)' }}
+						/>
 
-						<input {...register("phone")} type="number" placeholder='Телефон' />
-						<input {...register("email")} type="email" placeholder='E-mail' />
-						<textarea {...register("text")} cols={30} rows={10} placeholder='Текст сообщения'></textarea>
+						{errors.phone && <span className={styles['modal__form-error']}>{errors.phone.message}</span>}
+						<input
+							{...register("phone", {
+								required: "Введите Ваш номер телефона.",
+								maxLength: 50
+							})}
+							type="number"
+							placeholder='Телефон'
+							style={errors.phone && { borderColor: 'var(--color-700)', outlineColor: 'var(--color-700)' }}
+						/>
+
+						{errors.email && <span className={styles['modal__form-error']}>{errors.email.message}</span>}
+						<input
+							{...register("email", {
+								required: "Укажите Ваш e-mail.",
+								maxLength: 50
+							})}
+							type="email"
+							placeholder='E-mail'
+							style={errors.email && { borderColor: 'var(--color-700)', outlineColor: 'var(--color-700)' }}
+						/>
+
+						{errors.text && <span className={styles['modal__form-error']}>{errors.text.message}</span>}
+						<textarea
+							{...register("text", {
+								required: "Введите текст сообщения.",
+								maxLength: 300
+							})}
+							cols={30}
+							rows={10}
+							placeholder='Текст сообщения'
+							style={errors.text && { borderColor: 'var(--color-700)', outlineColor: 'var(--color-700)' }}
+						/>
 
 						<button
 							className={styles['modal__form-btn']}
