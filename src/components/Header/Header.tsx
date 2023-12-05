@@ -13,7 +13,7 @@ type Inputs = {
 }
 
 const Header = () => {
-	const landPlotsList = useSelector((state: RootState) => state.landplot.plotsTotalList)
+	const plotsTotalList = useSelector((state: RootState) => state.landplot.plotsTotalList)
 	const plotsPriceFiltered = useSelector((state: RootState) =>
 		state.landplot.plotsPriceFiltered
 	)
@@ -26,11 +26,11 @@ const Header = () => {
 	} = useForm<Inputs>()
 
 	const onSubmitPrice: SubmitHandler<Inputs> = (data) => {
-		let chosen: any = []
+		let chosen: number[] = []
 
-		landPlotsList.forEach(item => {
+		plotsTotalList.forEach(item => {
 			if (item.price >= data.priceMin && item.price <= data.priceMax) {
-				chosen.push(item)
+				chosen.push(item.id)
 			}
 		})
 
@@ -38,35 +38,41 @@ const Header = () => {
 	}
 
 	return (
-		<header className={styles.header}>
-			<div className={styles.header__container}>
-				<img src={logo} alt="land plot" className={styles.logo} />
+		<header className={styles['header']}>
+			<div className={styles['header__container']}>
+				<img src={logo} alt="land plot" className={styles['logo']} />
 
-				<div className={styles.header__info}>
-					<div className={styles['form-title']}>Цена участка</div>
-					<form onSubmit={handleSubmit(onSubmitPrice)} className={styles['form-price']}>
-						<input
-							type='number'
-							placeholder='от'
-							{...register('priceMin')}
-						/>
-						<input
-							type='number'
-							placeholder='до'
-							{...register('priceMax')}
-						/>
-						<button
-							className={styles['btn-search']}
-							type='submit'
-						>
-							<IconSearch />
-						</button>
-					</form>
-				</div>
+				<div className={styles['header-main-block']}>
+					<div className={styles['header__info']}>
+						<div className={styles['form-title']}>Цена участка</div>
+						<form onSubmit={handleSubmit(onSubmitPrice)} className={styles['form-price']}>
+							<input
+								type='number'
+								placeholder='от'
+								{...register('priceMin')}
+							/>
+							<input
+								type='number'
+								placeholder='до'
+								{...register('priceMax')}
+							/>
+							<button
+								className={styles['btn-search']}
+								type='submit'
+							>
+								<IconSearch />
+							</button>
+						</form>
+					</div>
 
-				<div className={styles['header__info']}>
-					{plotsPriceFiltered.length === 0 ? `Участков всего: ${landPlotsList.length}` : `По запросу найдено ${plotsPriceFiltered.length} участков`}
-
+					<div className={styles['header__info']}>
+						{plotsPriceFiltered.length === 0 ?
+							`Участков всего: ${plotsTotalList.length}` :
+							<>
+								<span className={styles['founded-results']}>По запросу найдено</span>&nbsp;{plotsPriceFiltered.length} участков
+							</>
+						}
+					</div>
 				</div>
 			</div>
 		</header>

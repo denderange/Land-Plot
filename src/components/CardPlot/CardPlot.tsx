@@ -10,6 +10,7 @@ const CardPlot: FC<ICardPlotProps> = ({ landPlot }) => {
 
 	return (
 		<div className={styles['card-container']}>
+			<button className={styles['btn-remove']}></button>
 			<img
 				src={landPlot.image.length ?
 					require(`../../images/plot-photos/${landPlot.image}`) :

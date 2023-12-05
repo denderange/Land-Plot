@@ -5,7 +5,7 @@ import { ILandPlot } from '../../data/landplots'
 interface IState {
 	plotsTotalList: Array<ILandPlot>,
 	plotsChosen: string[],
-	plotsPriceFiltered: Array<ILandPlot>
+	plotsPriceFiltered: number[]
 }
 
 const initialCurrent: ILandPlot[] = [

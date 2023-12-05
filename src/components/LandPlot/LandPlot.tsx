@@ -7,7 +7,7 @@ import CardPlot from '../CardPlot/CardPlot'
 import { useSelector } from 'react-redux'
 import { RootState, useStoreDispatch } from '../../redux/store'
 import { getPlots } from '../../redux/slice/landplotSlice'
-import { addChosenPlot, clearChosenPlot } from '../../redux/slice/landplotSlice'
+import { addChosenPlot, clearChosenPlot, addFilteredPricePlots } from '../../redux/slice/landplotSlice'
 
 const errorMessage = 'В данный момент сервер недоступен. Попробуйте позже.'
 
@@ -17,8 +17,8 @@ const LandPlot = () => {
 	const [plotsList, setPlotsList] = useState<string[]>([])
 
 	const dispatch = useStoreDispatch()
-	const landPlotsChosen = useSelector((state: RootState) => state.landplot.plotsChosen)
-	const landPlotsList = useSelector((state: RootState) =>
+	const plotsChosen = useSelector((state: RootState) => state.landplot.plotsChosen)
+	const plotsTotalList = useSelector((state: RootState) =>
 		state.landplot.plotsTotalList
 	)
 	const plotsPriceFiltered = useSelector((state: RootState) =>
@@ -26,16 +26,22 @@ const LandPlot = () => {
 	)
 
 	const handleClear = () => {
-		console.log(plotsList)
+		// console.log(plotsList)
 		setPlotsList([])
-		allPlots?.forEach(item => item.classList.remove('path-clicked'))
+		allPlots?.forEach(item => {
+			item.classList.remove('path-clicked')
+			item.classList.remove('path-price-chosen')
+		})
 
 		dispatch(clearChosenPlot())
+		dispatch(addFilteredPricePlots([]))
 	}
 
 	const fillFiltered = () => {
 		allPlots?.forEach(item => {
-			if (item.id === 'path10') {
+			item.classList.remove('path-price-chosen')
+
+			if (plotsPriceFiltered.includes(Number(item.id.slice(4)))) {
 				item.classList.add('path-price-chosen')
 			}
 		})
@@ -51,20 +57,18 @@ const LandPlot = () => {
 			if (!plotsList.includes(chosenPlot)) {
 				setPlotsList([...plotsList, chosenPlot])
 
-				if (landPlotsList.length) {
+				if (plotsTotalList.length) {
 					dispatch(addChosenPlot(chosenPlot))
 				}
-				console.log('landPlotsChosen: ' + landPlotsChosen)
 			}
 		}
 	}
 
 	useEffect(() => {
-		console.log('filtered: ' + plotsPriceFiltered)
+
 		dispatch(getPlots())
 		fillFiltered()
 
-		// const allPaths = Array.from(document.querySelectorAll('path'))
 		if (ref.current) {
 			const allPaths = Array.from(ref.current.querySelectorAll('path'))
 			allPaths.forEach(item => item.addEventListener('click', handlePathClick))
@@ -88,7 +92,7 @@ const LandPlot = () => {
 				</div>
 
 				<aside className={styles['map-info']}>
-					{landPlotsList.length ? (
+					{plotsTotalList.length ? (
 						<>
 							<div>
 								<button
@@ -97,36 +101,19 @@ const LandPlot = () => {
 								>
 									Очистить выбранные
 								</button>
-								<h5>items selected:</h5>
-								<p>
-									selected: {plotsList.length}
-								</p>
+
 								{plotsList.length ? (
-									<>
-										{plotsList.map((item, index) => (
-											<span key={index}>{item}</span>
-										))}
-									</>
+									<h6>Участков выбрано: {plotsList.length}</h6>
 								) : (<h5>Выберите участок</h5>)
 								}
 							</div>
 
 							<div className={styles['cards-wrapper']}>
-								{landPlotsChosen.map(item => (
+								{plotsChosen.map(item => (
 									<div key={item}>
-										<CardPlot landPlot={landPlotsList[Number(item)]} />
+										<CardPlot landPlot={plotsTotalList[Number(item)]} />
 									</div>
 								))}
-							</div>
-
-							<div>
-								<h6>from redux</h6>
-								<div>
-									{landPlotsChosen.length}
-								</div>
-								<div>
-									{/* {landPlotsChosen.id} */}
-								</div>
 							</div>
 						</>
 					) : (

@@ -18,7 +18,7 @@
 }
 
 .cards-wrapper{
-	min-height: 493px;
+	max-height: 533px;
 	overflow: scroll;
 	overflow-x: hidden;
 }
