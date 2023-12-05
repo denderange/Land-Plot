@@ -158,6 +158,17 @@ const ModalContacts = ({ toggleModal, isModalActive }: IModalContactsProps) => {
 							Отправить
 						</button>
 					</form>
+
+					<div style={{
+						color: 'red',
+						fontSize: 'small',
+						fontWeight: 'bold',
+						lineHeight: 1,
+						paddingTop: '5px',
+						textAlign: 'center'
+					}}>
+						Это дэмо-сайт. Сообщение отправляется на e-mail разработчика.
+					</div>
 				</section>
 
 				<button

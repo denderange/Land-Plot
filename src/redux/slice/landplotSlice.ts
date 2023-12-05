@@ -5,6 +5,7 @@ import { ILandPlot } from '../../data/landplots'
 interface IState {
 	plotsTotalList: Array<ILandPlot>,
 	plotsChosen: string[],
+	plotsPriceFiltered: Array<ILandPlot>
 }
 
 const initialCurrent: ILandPlot[] = [
@@ -20,6 +21,7 @@ const initialCurrent: ILandPlot[] = [
 const initialState: IState = {
 	plotsTotalList: [],
 	plotsChosen: [],
+	plotsPriceFiltered: []
 }
 
 export const getPlots = createAsyncThunk(
@@ -38,6 +40,10 @@ const landplotSlice = createSlice({
 		addChosenPlot: (state, action) => {
 			state.plotsChosen.unshift(action.payload)
 		},
+		addFilteredPricePlots: (state, action) => {
+			state.plotsPriceFiltered = []
+			state.plotsPriceFiltered = action.payload
+		},
 		clearChosenPlot: (state) => {
 			state.plotsChosen = []
 		}
@@ -49,5 +55,9 @@ const landplotSlice = createSlice({
 	}
 })
 
-export const { addChosenPlot, clearChosenPlot } = landplotSlice.actions
+export const {
+	addChosenPlot,
+	clearChosenPlot,
+	addFilteredPricePlots
+} = landplotSlice.actions
 export default landplotSlice.reducer

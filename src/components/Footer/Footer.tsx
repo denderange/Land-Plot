@@ -24,38 +24,87 @@ const Footer = () => {
 			</div>
 
 			<div className="container">
-				<ul>
-					<li>
-						© 2016 - 2023 Агентство недвижимости
+				<div className={styles['footer__content']}>
+					<ul>
+						<li>
+							© 1991 - {new Date().getFullYear()} Агентство недвижимости
+						</li>
+						<li>
+							<h5>
+								ЗАО "ВАШВЫБОР Люксембург"
+							</h5>
+						</li>
+						<li>г. Люксембург, ул. Вебсайтовая, строение 404</li>
+						<li>office@example.com</li>
+						<li>office.example.com</li>
+					</ul>
 
-						ЗАО "АЛЬТЕРНАТИВА Брест"
-						г. Брест, ул. Советская, 51-1
-						office@a-brest.by
-						office.a-brest.by
-					</li>
-				</ul>
-				© 2016 - 2023 Агентство недвижимости
+					<ul className={styles['contacts']}>
+						<li>
+							<a href="tel:+375005557770">
+								<i>Новостройки</i>
+								<span>+375 (00) 555-77-70</span>
+							</a>
+						</li>
+						<li>
+							<a href="tel:+375005557771">
+								<i>Квартиры на вторичке</i>
+								<span>+375 (00) 555-77-71</span>
+							</a>
+						</li>
+						<li>
+							<a href="tel:+375005557772">
+								<i>Дома, дачи, участки</i>
+								<span>+375 (00) 555-77-72</span>
+							</a>
+						</li>
+						<li>
+							<a href="tel:+375005557773">
+								<i>Нежилой фонд</i>
+								<span>+375 (00) 555-77-73</span>
+							</a>
+						</li>
+						<li>
+							<a href="tel:+375005557774">
+								<i>Оформление сделок</i>
+								<span>+375 (00) 555-77-74</span>
+							</a>
+						</li>
+						<li>
+							<a href="tel:+375005557775">
+								<i>Консультации юристов</i>
+								<span>+375 (00) 555-77-75</span>
+							</a>
+						</li>
+						<li>
+							<a href="tel:+375005557776">
+								<i>Трудоустройство</i>
+								<span>+375 (00) 555-77-76</span>
+							</a>
+						</li>
+					</ul>
 
-				ЗАО "АЛЬТЕРНАТИВА Брест"
-				г. Брест, ул. Советская, 51-1
-				office@a-brest.by
-				office.a-brest.by
-				Войти   Регистрация
-				Новостройки
-				+375 (29) 757-57-57
-				Квартиры на вторичке
-				+375 (33) 315-51-51
-				Дома, дачи, участки
-				+375 (33) 363-51-51
-				Нежилой фонд
-				+375 (29) 239-52-00
-				Оформление сделок
-				+375 (29) 727-02-07
-				Консультации юристов
-				+375 (29) 722-38-36
-				Трудоустройство
-				+375 (29) 725-44-00
+					<ul className={styles['footer-links']}>
+						<li><a href="#!">Каталог недвижимости</a></li>
+						<li><a href="#!">Квартиры</a></li>
+						<li><a href="#!">Дома</a></li>
+						<li><a href="#!">Дачи</a></li>
+						<li><a href="#!">Коммерческая</a></li>
+						<li><a href="#!">Политика в отношении обработки персональных данных</a></li>
+					</ul>
+
+				</div>
 			</div>
+
+			<div
+				style={{
+					fontSize: 'small',
+					borderTop: '1px solid',
+					padding: '0 200px',
+					margin: '0 auto',
+					width: 'max-content'
+				}}
+			>{new Date().getFullYear()} &copy; Dennis Polukaroff</div>
 
 			<ModalContacts toggleModal={toggleModal} isModalActive={modalIsActive} />
 		</footer>

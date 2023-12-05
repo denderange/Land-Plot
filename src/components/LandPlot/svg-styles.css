@@ -21,3 +21,8 @@ path:hover{
 	stroke: rgba(0, 0, 0, 1);
 	fill: rgba(255, 251, 0, 1);
 }
+
+.path-price-chosen{
+	stroke: rgba(0, 0, 0, 1);
+	fill: rgba(255, 0, 221, 0.3);
+}

@@ -21,7 +21,7 @@ const CardPlot: FC<ICardPlotProps> = ({ landPlot }) => {
 
 			<div className={styles['plot__info']}>
 				<div className={styles['plot__price']}>
-					{landPlot.price}$ / {landPlot.price}
+					{landPlot.price} $
 				</div>
 
 				<div className={styles['plot__square']}>

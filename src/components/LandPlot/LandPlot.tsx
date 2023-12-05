@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import imgLand from '../../images/land-plot-image.jpg'
 import LandPlotSvg from './LandPlotSvg'
 import styles from './LandPlot.module.css'
@@ -12,6 +12,7 @@ import { addChosenPlot, clearChosenPlot } from '../../redux/slice/landplotSlice'
 const errorMessage = 'В данный момент сервер недоступен. Попробуйте позже.'
 
 const LandPlot = () => {
+	const ref = useRef<HTMLDivElement>(null)
 	const [allPlots, setAllPlots] = useState<SVGPathElement[]>()
 	const [plotsList, setPlotsList] = useState<string[]>([])
 
@@ -20,6 +21,9 @@ const LandPlot = () => {
 	const landPlotsList = useSelector((state: RootState) =>
 		state.landplot.plotsTotalList
 	)
+	const plotsPriceFiltered = useSelector((state: RootState) =>
+		state.landplot.plotsPriceFiltered
+	)
 
 	const handleClear = () => {
 		console.log(plotsList)
@@ -27,6 +31,14 @@ const LandPlot = () => {
 		allPlots?.forEach(item => item.classList.remove('path-clicked'))
 
 		dispatch(clearChosenPlot())
+	}
+
+	const fillFiltered = () => {
+		allPlots?.forEach(item => {
+			if (item.id === 'path10') {
+				item.classList.add('path-price-chosen')
+			}
+		})
 	}
 
 	const handlePathClick = (event: Event) => {
@@ -42,29 +54,34 @@ const LandPlot = () => {
 				if (landPlotsList.length) {
 					dispatch(addChosenPlot(chosenPlot))
 				}
-				// console.log(landPlotsList[Number(chosenPlot) - 1])
-				console.log(landPlotsChosen)
+				console.log('landPlotsChosen: ' + landPlotsChosen)
 			}
 		}
 	}
 
 	useEffect(() => {
+		console.log('filtered: ' + plotsPriceFiltered)
 		dispatch(getPlots())
+		fillFiltered()
 
-		const allPaths = Array.from(document.querySelectorAll('path'))
-		allPaths.forEach(item => item.addEventListener('click', handlePathClick))
+		// const allPaths = Array.from(document.querySelectorAll('path'))
+		if (ref.current) {
+			const allPaths = Array.from(ref.current.querySelectorAll('path'))
+			allPaths.forEach(item => item.addEventListener('click', handlePathClick))
 
-		setAllPlots([...allPaths])
+			setAllPlots([...allPaths])
 
-		return () => allPaths.forEach(item => {
-			item.removeEventListener("click", handlePathClick);
-		});
-	}, [dispatch, plotsList])
+			return () => allPaths.forEach(item => {
+				item.removeEventListener("click", handlePathClick);
+			});
+		}
+
+	}, [dispatch, plotsList, plotsPriceFiltered])
 
 	return (
 		<div className='container'>
 			<section className={styles['map-wrapper']}>
-				<div className={styles['land-plot__image-wrapper']}>
+				<div ref={ref} className={styles['land-plot__image-wrapper']}>
 					<img src={imgLand} alt="" className={styles['land-plot__image']} />
 
 					<LandPlotSvg />
@@ -94,11 +111,13 @@ const LandPlot = () => {
 								}
 							</div>
 
-							{landPlotsChosen.map(item => (
-								<div key={item}>
-									<CardPlot landPlot={landPlotsList[Number(item)]} />
-								</div>
-							))}
+							<div className={styles['cards-wrapper']}>
+								{landPlotsChosen.map(item => (
+									<div key={item}>
+										<CardPlot landPlot={landPlotsList[Number(item)]} />
+									</div>
+								))}
+							</div>
 
 							<div>
 								<h6>from redux</h6>
