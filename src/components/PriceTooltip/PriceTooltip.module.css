@@ -1,0 +1,23 @@
+.tootlip-container{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	padding: 0 10px;
+	background-color: var(--color-white);
+	color: var(--color-440);
+	font-weight: 500;
+	font-size: 16px;
+}
+
+.tootlip-container div:first-child{
+	border-top: 1px solid var(--color-400);
+	margin-top: 10px;
+	line-height: 0.5;
+	margin-bottom: 5px;
+}
+
+.tootlip-container div:last-child{
+	border-bottom: 1px solid var(--color-400);
+	margin-bottom: 10px;
+	line-height: 1;
+}
