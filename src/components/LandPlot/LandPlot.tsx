@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef, lazy, Suspense } from 'react'
 import imgLand from '../../images/land-plot-image.jpg'
 import LandPlotSvg from './LandPlotSvg'
-// import CardPlot from '../CardPlot/CardPlot'
 import { useSelector } from 'react-redux'
 import { RootState, useStoreDispatch } from '../../redux/store'
 import { addChosenPlot, clearChosenPlot, addFilteredPricePlots } from '../../redux/slice/landplotSlice'
@@ -37,10 +36,6 @@ const LandPlot = () => {
 		dispatch(addFilteredPricePlots([]))
 	}
 
-	const clearRemovedPlot = () => {
-		console.log('btn CLEAR handle')
-	}
-
 	const fillFiltered = () => {
 		allPlots?.forEach(item => {
 			item.classList.remove('path-price-chosen')
@@ -57,7 +52,6 @@ const LandPlot = () => {
 		if (target.tagName === 'path') {
 			target.classList.add('path-clicked')
 			const chosenPlot = target.id.slice(4)
-			console.log(target.id.slice(4))
 
 			if (!plotsChosen.includes(chosenPlot.toString())) {
 				dispatch(addChosenPlot(chosenPlot))
@@ -65,12 +59,31 @@ const LandPlot = () => {
 		}
 	}
 
+	document.addEventListener('mouseover', (event: Event) => {
+		const target = event.target as HTMLElement
+		if (target.tagName === 'path') {
+			const hoveredPlot = plotsTotalList.find(item => item.id === Number(target.id.slice(4)))
+			setPlotPrice(Number(hoveredPlot?.price))
+			setPlotSquare(Number(hoveredPlot?.square))
+		}
+	});
+
+	document.addEventListener('mouseout', (event: Event) => {
+		const target = event.target as HTMLElement
+		if (target.tagName === 'path') {
+			setPlotPrice(0)
+			setPlotSquare(0)
+		}
+	});
+
 	useEffect(() => {
 		fillFiltered()
 
 		if (ref.current) {
 			const allPaths = Array.from(ref.current.querySelectorAll('path'))
-			allPaths.forEach(item => item.addEventListener('click', handlePathClick))
+			allPaths.forEach(item => {
+				item.addEventListener('click', handlePathClick)
+			})
 
 			setAllPlots([...allPaths])
 
@@ -100,12 +113,6 @@ const LandPlot = () => {
 									onClick={handleClear}
 								>
 									Очистить выбранные
-								</button>
-
-								<button
-									onClick={clearRemovedPlot}
-								>
-									очистить участок
 								</button>
 
 								{plotsChosen.length ? (

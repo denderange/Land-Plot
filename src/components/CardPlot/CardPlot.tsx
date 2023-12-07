@@ -15,7 +15,6 @@ const CardPlot: FC<ICardPlotProps> = ({ landPlot }) => {
 
 	const handleBtnRemove = () => {
 		dispatch(removeChosenPlot(landPlot.id.toString()))
-		console.log(landPlot.id)
 	}
 
 	return (
@@ -33,7 +32,7 @@ const CardPlot: FC<ICardPlotProps> = ({ landPlot }) => {
 				className={styles['plot__image']}
 				alt={`Участок номер ${landPlot.id}`}
 				width={500}
-				height={500}
+				height={'auto'}
 				onLoad={() => setImgIsLoaded(false)}
 			/>
 

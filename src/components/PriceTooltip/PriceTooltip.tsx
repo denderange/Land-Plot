@@ -9,9 +9,9 @@ const PriceTooltip = ({ price = 0, square = 0 }: PriceTooltipProps) => {
 	return (
 		<div className={styles['tootlip-container']}>
 			<div>
-				{price !== 0 ? `${price} $` : `цена не указана`}
+				{price !== 0 && !isNaN(price) ? `${price} $` : ``}
 			</div>
-			<div>{square !== 0 ? `${square} $` : `размер не указан`}</div>
+			<div>{square !== 0 && !isNaN(price) ? `${square} соток` : ``}</div>
 		</div>
 	)
 }

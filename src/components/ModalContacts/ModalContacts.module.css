@@ -25,6 +25,7 @@
 	background-color: var(--color-white);
 	color: #000;
 	display: flex;
+	margin-top: 10px;
 }
 
 .modal__contacts{
@@ -139,4 +140,32 @@
 
 .modal__btn-close:hover{
 	color: red;
+}
+
+/* ------ */
+@media (max-width: 850px){
+	.modal{
+		flex-direction: column;
+	}
+
+	.modal__aside{
+		margin: 0 auto;
+	}
+}
+
+@media (max-width: 850px){
+	.modal__contacts{
+		max-width: 100%;		
+	}
+}
+
+@media (max-width: 630px){
+	.modal__btn-close{
+		top: -4px;
+		right: 0px;
+		background-color: transparent;
+		color: var(--color-700);
+		font-size: 25px;
+		font-weight: bold;
+	}
 }

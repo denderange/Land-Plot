@@ -25,7 +25,7 @@ const Footer = () => {
 
 			<div className="container">
 				<div className={styles['footer__content']}>
-					<ul>
+					<ul className={styles['foote__content-address']}>
 						<li>
 							© 1991 - {new Date().getFullYear()} Агентство недвижимости
 						</li>

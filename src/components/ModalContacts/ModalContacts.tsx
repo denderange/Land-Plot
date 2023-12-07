@@ -170,12 +170,12 @@ const ModalContacts = ({ toggleModal, isModalActive }: IModalContactsProps) => {
 						Это дэмо-сайт. Сообщение отправляется на e-mail разработчика.
 					</div>
 				</section>
-
 				<button
 					className={styles['modal__btn-close']}
 					onClick={toggleModal}
 				>X</button>
 			</div>
+
 		</dialog>
 	)
 }
